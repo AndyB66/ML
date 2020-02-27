@@ -7,13 +7,13 @@ from keras.models import Model, load_model
 from keras.losses import binary_crossentropy
 from ae_lib import iRprop_
 
-train_data_path = 'fraud_train_optimal.pickle'
-test_data_path = 'fraud_test_optimal.pickle'
-encoder_path = 'fraud_encoder_deep_optimal.hdf5'
-decoder_path = 'fraud_decoder_deep_optimal.hdf5'
-autoencoder_path = 'fraud_autoencoder_deep_optimal.hdf5'
-msqe_plot_path = 'fraud_ae_msqe.png'
-xent_plot_path = 'fraud_ae_xent.png'
+train_data_path = 'fraud_old_train.pickle'
+test_data_path = 'fraud_old_test.pickle'
+encoder_path = 'fraud_encoder_deep_old.hdf5'
+decoder_path = 'fraud_decoder_deep_old.hdf5'
+autoencoder_path = 'fraud_autoencoder_deep_old.hdf5'
+msqe_plot_path = 'fraud_ae_msqe_old.png'
+xent_plot_path = 'fraud_ae_xent_old.png'
 
 # prepare input data
 x_train = pd.read_pickle(train_data_path).to_numpy()
@@ -25,12 +25,12 @@ decoder = load_model(decoder_path, custom_objects={'iRprop_': iRprop_})
 autoencoder = load_model(autoencoder_path, custom_objects={'iRprop_': iRprop_})
 
 # configure model
-#encoder.compile(optimizer=iRprop_(), loss='binary_crossentropy')
-#decoder.compile(optimizer=iRprop_(), loss='binary_crossentropy')
-#autoencoder.compile(optimizer=iRprop_(), loss='binary_crossentropy')
-encoder.compile(optimizer=iRprop_(), loss='mean_squared_error')
-decoder.compile(optimizer=iRprop_(), loss='mean_squared_error')
-autoencoder.compile(optimizer=iRprop_(), loss='mean_squared_error')
+encoder.compile(optimizer=iRprop_(), loss='binary_crossentropy')
+decoder.compile(optimizer=iRprop_(), loss='binary_crossentropy')
+autoencoder.compile(optimizer=iRprop_(), loss='binary_crossentropy')
+#encoder.compile(optimizer=iRprop_(), loss='mean_squared_error')
+#decoder.compile(optimizer=iRprop_(), loss='mean_squared_error')
+#autoencoder.compile(optimizer=iRprop_(), loss='mean_squared_error')
 
 # encode and decode some data
 enc_train = encoder.predict(x_train)
